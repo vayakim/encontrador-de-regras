@@ -1,0 +1,41 @@
+{% extends "template.html"%}
+
+{% block conteudo %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<a href="/menu" class="btn btn-primary btn-lg">Voltar</a>
+   
+<h1 class="title" >Suspeitos das regras destacados</h1>
+
+<div class="container">
+    {% if regras_destacadas_no_original %}
+        {{ regras_destacadas_no_original | safe }}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Erro!
+        </div>
+    {% endif %}
+</div>
+
+
+
+{%if erro_msg%}
+<div class="alert alert-danger" role="alert" style="padding-bottom: 10px;">
+    {{ erro_msg }}
+</div>
+{%endif%}
+
+{%endblock%}

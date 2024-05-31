@@ -1,0 +1,26 @@
+{% extends "template.html"%}
+
+{% block conteudo %}
+
+<div class="container">
+    <div class="page-header title">
+        <h1>Rules finder 2.0</h1>
+    </div>
+    <br>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <a href="/param_dados" class="btn btn-primary btn-lg">Selecionar parâmetros dos dados</a>
+        </div>
+        <br><br>
+        <div class="grid-item">
+            <a href="/param_regras" class="btn btn-primary btn-lg">Selecionar parâmetros das regras</a>
+        </div>
+        <br><br>
+        <div class="grid-item">
+            <a href="/procurar_regras" class="btn btn-primary btn-lg">Iniciar busca</a>
+        </div>  
+    </div>
+
+
+{%endblock%}

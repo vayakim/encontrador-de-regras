@@ -1,0 +1,39 @@
+{% extends "template.html"%}
+
+{% block conteudo %}
+
+
+<a href="/menu" class="btn btn-primary btn-lg">Voltar</a>
+
+<h2 class="title">Encontrador de regras</h2>
+<form action="/param_dados_received" method="post" enctype="multipart/form-data">
+
+    <label for="dataset">Dataset:</label><br>
+    <input type="file" id="dataset" name="dataset" accept=".csv"><br><br>
+
+    <label for="metadata">Metadata:</label><br>
+    <input type="text" id="metadata" name="metadata"><br><br>
+    
+    <label for="origem">Origem:</label><br>
+    <input type="text" id="origem" name="origem"><br><br>
+    
+    <label for="destino">Destino:</label><br>
+    <input type="text" id="destino" name="destino"><br><br>
+
+    
+    <input type="submit" value="Enviar">
+</form>
+<br><br>
+{%if erro_msg%}
+    <div style="margin-bottom: 100px;">
+        <div class="alert alert-danger" role="alert">
+            {{ erro_msg }}
+        </div>
+    </div>
+{%endif%}
+
+<div class="footer">
+    <p style=" bottom: 0; left: 0; width: 100%; text-align: center;">Vinicius Kamiya</p>
+</div>
+
+{% endblock %}

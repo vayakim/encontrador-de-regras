@@ -1,0 +1,117 @@
+{% extends "template.html"%}
+{% block conteudo %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treeview Example</title>
+    <style>
+        .treeview ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .treeview li {
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .treeview li::before {
+            content: "";
+            position: absolute;
+            top: 14px;
+            left: -10px;
+            border-left: 1px solid #000;
+            border-bottom: 1px solid #000;
+            width: 10px;
+            height: 10px;
+        }
+
+        .treeview li:last-child::before {
+            border-left: 1px solid #000;
+            border-bottom: none;
+        }
+
+        .treeview .nested {
+            display: none;
+        }
+
+        .treeview .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .treeview .caret-down::before {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="treeview"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const treeview = document.getElementById('treeview');
+            const dados = JSON.parse('{{ tree|tojson|safe }}');
+
+            function buildTree(data) {
+                const root = {};
+
+                function addNode(path, value, node) {
+                    const key = JSON.stringify(path);
+                    if (!node[key]) node[key] = { children: {}, value: null };
+                    node[key].value = value;
+                }
+
+                function isSubset(subset, superset) {
+                    return subset.every(val => superset.includes(val));
+                }
+
+                data.sort((a, b) => b[0].length - a[0].length).forEach(([path, value]) => {
+                    let parent = root;
+                    for (let key in parent) {
+                        if (isSubset(path, JSON.parse(key))) {
+                            parent = parent[key].children;
+                        }
+                    }
+                    addNode(path, value, parent);
+                });
+
+                return root;
+            }
+
+            function createTree(container, obj) {
+                const ul = document.createElement('ul');
+                for (let key in obj) {
+                    const item = JSON.parse(key);
+                    const li = document.createElement('li');
+                    li.classList.add('caret');
+                    li.textContent = JSON.stringify(item) + (obj[key].value !== null ? ` (${obj[key].value})` : '');
+                    const nestedUl = document.createElement('ul');
+                    nestedUl.classList.add('nested');
+                    createTree(nestedUl, obj[key].children);
+                    li.appendChild(nestedUl);
+                    ul.appendChild(li);
+                }
+                container.appendChild(ul);
+            }
+
+            const treeData = buildTree(dados);
+            createTree(treeview, treeData);
+
+            // Toggle tree branches
+            treeview.addEventListener('click', function(e) {
+                if (e.target.tagName === 'LI' && e.target.classList.contains('caret')) {
+                    e.target.classList.toggle('caret-down');
+                    e.target.querySelector('.nested').classList.toggle('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "template.html"%}
+
+{% block conteudo %}
+
+
+<a href="/menu" class="btn btn-primary btn-lg">Voltar</a>
+
+<h2 class="title">Especifique as restrições das regras</h2>
+<form action="/param_regras_received" method="post" enctype="multipart/form-data">
+
+    <label for="min_rep">Número mínimo de repetições:</label><br>
+    <input type="number" id="min_rep" name="min_rep"><br><br>
+    
+    <label for="min_conf">Confiança mínima (0~1):</label><br>
+    <input type="text" id="min_conf" name="min_conf"><br><br>
+    
+    <label>Temporalidade dos dados:</label>
+    <select id="escolha" name="janela_tempo">
+        <option value="Meses">Meses</option>
+        <option value="Semanas">Semanas</option>
+        <option value="Dias">Dias</option>
+        <option value="Horas">Horas</option>
+        <option value="Minutos">Minutos</option>
+    </select><br><br>
+
+    <input type="submit" value="Enviar">
+
+</form>
+
+<br><br>
+
+{%if erro_msg%}
+    <div class="alert alert-danger" role="alert" style="padding-bottom: 10px;">
+        {{ erro_msg }}
+    </div>
+{%endif%}
+<div class="footer">
+    <p style=" position: absolute; bottom: 0; left: 0; width: 100%; text-align: center;">Vinicius Kamiya</p>
+</div>
+
+{% endblock %}

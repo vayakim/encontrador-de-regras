@@ -1,0 +1,33 @@
+{% extends "template.html"%}
+
+{% block conteudo %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<a href="/menu" class="btn btn-primary btn-lg">Voltar</a>
+
+<h1 class="title">Dados originais</h1>
+
+<div class="container">
+    {% if dados_originais %}
+        {{ dados_originais | safe }}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            A tabela de dados não foi identificada.
+        </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

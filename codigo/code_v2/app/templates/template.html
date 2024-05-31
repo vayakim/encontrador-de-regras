@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Encontrador de regras</title>
+    <link rel = "stylesheet" href="{{url_for('static',filename = 'bootstrap.css')}}">
+      <link rel="stylesheet" href="hhttps://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- FontAwesome CDN link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  </head>
+  <body>
+    <div class ="my_navbar">
+        <a href="/menu">Menu</a>
+        <a href="/dados_originais">Dados originais</a>
+        <a href="/procurar_regras">Regras encontradas</a>
+        <a href="/regras_destacadas_no_original">Regras destacadas nos dados originais</a>
+        <a href="/itemsets_frequentes">Itemsets frequentes</a>
+        
+
+    </div>
+ 
+    <style>
+        .footer{ 
+            text-align: center;    
+            bottom: 0px; 
+            width: 100%;
+        }  
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .grid-item {
+            text-align: center;
+        }
+        .title {
+            text-align: center;
+            margin-top: 30px; /* Espaçamento superior */
+            margin-bottom: 20px; /* Espaçamento inferior */
+        }
+
+         .btn-group-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .btn-group-vertical .btn {
+            width: 400px; /* Defina o tamanho desejado */
+            margin-bottom: 10px; /* Espaçamento entre os botões */
+        }
+
+         /* Estilo para centralizar os botões */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Espaçamento superior */
+        }
+        .button-group button {
+            margin: 0 10px; /* Espaçamento entre os botões */
+        }
+        
+        .autor {
+            text-align: center;
+            margin-top: 20px; /* Espaçamento superior */
+            margin-bottom: 20px; /* Espaçamento inferior */
+        }
+
+    </style>
+    <div class="container">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul id="messages" class="list-unstyled">
+                {% for message in messages %}
+                    <li class="alert alert-success">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <div class="page-header title">
+            <h1>{{ titulo }}</h1>
+        </div>
+
+        {%block conteudo%} 
+    </div>
+
+    
+  </body>
+  {%endblock%}
+</html>
