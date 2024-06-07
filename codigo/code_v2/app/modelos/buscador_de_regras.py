@@ -27,6 +27,11 @@ class buscadorRegras:
         self.metadata = metadata
         self.origem = origem
         self.destino = destino
+    
+    def set_infos_regras(self, janela_tempo, min_rep, min_conf):
+        self.janela_tempo = janela_tempo
+        self.min_rep = min_rep
+        self.min_conf = min_conf
 
     def gerar_baldes(self):
         metadata = self.metadata

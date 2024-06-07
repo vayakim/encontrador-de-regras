@@ -36,7 +36,7 @@ def param_regras():
 #rota que salva os dados recebidos pelo usuario no menu
 @app.route('/param_dados_received', methods=['POST'])
 def get_infos():
-    global modelo
+    global controlador
     global dados_originais_html
     metadata = request.form['metadata']
     origem = request.form['origem']
@@ -50,15 +50,15 @@ def get_infos():
     if metadata not in data.columns or origem not in data.columns or destino not in data.columns:
         return render_template('param_dados.html', erro_msg='Erro ao carregar os dados. Verifique se o arquivo está no formato correto e se os campos foram preenchidos corretamente.')
    
-    modelo.set_dados_originais(data, metadata, origem, destino)
-    modelo.set_dados_modificados(data, metadata, origem, destino)
+    controlador.set_dados_originais(data, metadata, origem, destino)
+    controlador.set_dados_modificados(data, metadata, origem, destino)
     dados_originais_html = data.to_html(classes='table table-striped')
 
     return render_template('menu.html')
 
 @app.route('/param_regras_received', methods=['POST'])
 def get_infos_regras():
-    global modelo
+    global controlador
     min_rep = request.form['min_rep']
     min_conf = float(request.form['min_conf'])
     janela_tempo = request.form['janela_tempo']
@@ -67,7 +67,7 @@ def get_infos_regras():
         return render_template('param_regras.html', erro_msg='Erro ao carregar os dados. Verifique se os campos foram preenchidos corretamente.')
     
     print(min_rep, min_conf, janela_tempo)
-    modelo.set_regras_parametros(min_rep, min_conf, janela_tempo)
+    controlador.set_regras_parametros(min_rep, min_conf, janela_tempo)
 
     return render_template('menu.html')
 
@@ -274,10 +274,11 @@ def mostrar_regra_escolhida_destacada():
 def init():
     global modelo
     global controlador
-
     if modelo is None:
         modelo = Modelo()
         if controlador is None:
             controlador = Controlador(modelo)
+    elif controlador is None:
+        controlador = Controlador(modelo)
 
     

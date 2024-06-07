@@ -21,9 +21,7 @@ class Modelo:
         if self.buscador_regras is None:
             self.buscador_regras = buscadorRegras(janela_tempo, min_rep, min_conf)
         else:
-            self.buscador_regras.min_rep = min_rep
-            self.buscador_regras.min_conf = min_conf
-            self.buscador_regras.janela_tempo = janela_tempo
+            self.buscador_regras.set_infos_regras(janela_tempo, min_rep, min_conf)
 
     def buscar_regras(self):
         self.buscador_regras.set_dataset(self.dados_modificados.get_dados_ordenados())
